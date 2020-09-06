@@ -1,0 +1,4 @@
+nl_env
+*.sqlite3
+ProjectSteps.txt
+__pycache__
