@@ -1,0 +1,15 @@
+{% extends 'note_logs/base.html' %}
+
+{% block content %}
+
+  <p>Notepads</p>
+
+  <ul>
+  	{% for notepad in notepads %}
+  	  <li>{{ notepad }}</li> <!-- to declear that this is a variable -->
+  	{% empty %}
+  	  <li>No notepads have been created yet.</li>
+  	{% endfor %}
+  </ul>
+
+{% endblock content %}  	  
