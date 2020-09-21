@@ -1,0 +1,19 @@
+{% extends 'note_logs/base.html' %}
+
+{% block content %}
+
+  <p>Notepad : {{ notepad }}</p>
+
+  <p>Notes:</p>
+  <ul>
+  	{% for note in notes %}
+  	  <li>
+  	  	<p>{{ note.date_added|date:"M d, Y H:i" }}</p>
+  	  	<p>{{ note.text|linebreaks }}</p>
+  	  </li>
+  	{% empty %}
+  	  <li>No notes have been created yet.</li>
+  	{% endfor %}
+  </ul>
+
+{% endblock content %}  	  

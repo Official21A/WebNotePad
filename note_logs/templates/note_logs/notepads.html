@@ -6,7 +6,9 @@
 
   <ul>
   	{% for notepad in notepads %}
-  	  <li>{{ notepad }}</li> <!-- to declear that this is a variable -->
+  	  <li>
+  	  	<a href="{% url 'note_logs:notepad' notepad.id %}">{{ notepad }}</a>
+  	  </li> <!-- to declear that this is a variable -->
   	{% empty %}
   	  <li>No notepads have been created yet.</li>
   	{% endfor %}
