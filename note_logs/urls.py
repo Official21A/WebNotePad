@@ -17,4 +17,6 @@ urlpatterns = [
 	path('notepads/', views.notepads, name='notepads'),
 	# Each notepad notes 
 	path('notepads/<int:notepad_id>/', views.notepad, name='notepad'),
+	# Page for adding new notepad
+	path('new_notepad/', views.new_notepad, name='new_notepad'),
 ]
