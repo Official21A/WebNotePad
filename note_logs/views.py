@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 from .models import Notepad
-from .forms import NotepadForm
+from .forms import NotepadForm, NoteForm
 
 # Create your views here.
 
@@ -24,7 +24,7 @@ def notepad(request, notepad_id):
 	return render(request, 'note_logs/notepad.html', context)
 
 def new_notepad(request):
-	# this function adds a new notepad to the database of a user
+	# this function adds a new notepad to the database for a user
 	if request.method != 'POST':
 		# no data submited
 		form = NotepadForm()
@@ -38,4 +38,26 @@ def new_notepad(request):
 												  # the notepads page.
 	# display a blank or invalid form page
 	context = {'form': form}
-	return render(request, 'note_logs/new_notepad.html', context)				
+	return render(request, 'note_logs/new_notepad.html', context)
+
+def new_note(request, notepad_id):
+	# this function creates and adds a new note to database for a user
+	notepad = Notepad.objects.get(id=notepad_id)
+	if request.method != 'POST':
+		# no data submited
+		form = NoteForm()
+	else:
+		# process the given data
+		form = NoteForm(data=request.POST)
+		if form.is_valid():
+			# save after validation
+			new_note = form.save(commit=False)
+			new_note.notepad = notepad
+			new_note.save()
+			# at first we tell django to create a space for the new note but
+			# not save it to database, after we defined the notepad of the note
+			# we save it into the database with its notepad.
+			return redirect('note_logs:notepad', notepad_id=notepad_id)
+	# display a blank or invalid form page
+	context = {'notepad': notepad, 'form': form}
+	return render(request, 'note_logs/new_note.html', context)		

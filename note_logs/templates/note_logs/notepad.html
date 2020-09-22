@@ -5,6 +5,11 @@
   <p>Notepad : {{ notepad }}</p>
 
   <p>Notes:</p>
+
+  <p>
+    <a href="{% url 'note_logs:new_note' notepad.id %}">Add new note</a>
+  </p>
+
   <ul>
   	{% for note in notes %}
   	  <li>

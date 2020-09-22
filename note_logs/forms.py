@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Notepad
+from .models import Notepad, Note
 
 
 class NotepadForm(forms.ModelForm):
@@ -11,3 +11,13 @@ class NotepadForm(forms.ModelForm):
 		model = Notepad
 		fields = ['text']
 		labels = {'text': ''}
+
+
+class NoteForm(forms.ModelForm):
+	# also like the base class
+	class Meta:
+		model = Note
+		fields = ['text']
+		labels = {'text': 'Note:'}
+		widgets = {'text': forms.Textarea(attrs={'cols': 80})}	
+		# the above var is an HTML element which creates a field to get the data	

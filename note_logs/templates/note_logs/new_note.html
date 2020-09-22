@@ -1,0 +1,14 @@
+{% extends "note_logs/base.html" %}
+
+{% block content %}
+
+  <p><a href="{% url 'note_logs:notepad' notepad.id %}">{{ notepad }}</a></p>
+
+  <p>Add a new note:</p>
+  <form action="{% url 'note_logs:new_note' notepad.id %}", method="post">
+  	{% csrf_token %}
+  	{{ form.as_p }}
+  	<button name="submit">Add note</button>
+  </form>
+
+{% endblock content %}
