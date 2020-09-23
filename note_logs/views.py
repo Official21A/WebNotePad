@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 
 from .models import Notepad, Note
 from .forms import NotepadForm, NoteForm
@@ -9,6 +10,7 @@ def index(request):
 	# the function to manage the home page of the web project
 	return render(request, 'note_logs/index.html') # the name of the template
 
+@login_required
 def notepads(request):
 	# this function gets the notepads and will send them to template to render
 	notepads = Notepad.objects.order_by('date_added')	
@@ -16,6 +18,7 @@ def notepads(request):
 									 # we want to the template.
 	return render(request, 'note_logs/notepads.html', context)
 
+@login_required
 def notepad(request, notepad_id):
 	# this function shows the notes of a notepad
 	notepad = Notepad.objects.get(id=notepad_id)
@@ -23,6 +26,7 @@ def notepad(request, notepad_id):
 	context = {'notepad': notepad, 'notes': notes} # create the context	
 	return render(request, 'note_logs/notepad.html', context)
 
+@login_required
 def new_notepad(request):
 	# this function adds a new notepad to the database for a user
 	if request.method != 'POST':
@@ -40,6 +44,7 @@ def new_notepad(request):
 	context = {'form': form}
 	return render(request, 'note_logs/new_notepad.html', context)
 
+@login_required
 def new_note(request, notepad_id):
 	# this function creates and adds a new note to database for a user
 	notepad = Notepad.objects.get(id=notepad_id)
@@ -62,6 +67,7 @@ def new_note(request, notepad_id):
 	context = {'notepad': notepad, 'form': form}
 	return render(request, 'note_logs/new_note.html', context)		
 
+@login_required
 def edit_note(request, note_id):
 	# this function is for editing a choosen note
 	note = Note.objects.get(id=note_id)
@@ -80,6 +86,7 @@ def edit_note(request, note_id):
 	# display a blank or invalid form page
 	return render(request, 'note_logs/edit_note.html', context)		
 
+@login_required
 def delete_notepad(request, notepad_id):
 	# this function deletes a notepad of a user
 	context = {'result': ''}
@@ -92,6 +99,7 @@ def delete_notepad(request, notepad_id):
 		context['result'] = "FAILD"
 	return render(request, 'note_logs/remove_result.html', context)		
 
+@login_required
 def delete_note(request, note_id):
 	# this function deletes a note for user
 	context = {'result': ''}
