@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # manual APP_DIRS
     'note_logs',
+    'users',
     # django default APP_DIRS
     'django.contrib.admin',
     'django.contrib.auth',
