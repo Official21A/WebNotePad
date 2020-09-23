@@ -15,6 +15,9 @@
   	  <li>
   	  	<p>{{ note.date_added|date:"M d, Y H:i" }}</p>
   	  	<p>{{ note.text|linebreaks }}</p>
+        <p>
+          <a href="{% url 'note_logs:edit_note' note.id %}">Edit note</a>
+        </p>
   	  </li>
   	{% empty %}
   	  <li>No notes have been created yet.</li>

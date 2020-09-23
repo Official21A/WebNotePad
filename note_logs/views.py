@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from .models import Notepad
+from .models import Notepad, Note
 from .forms import NotepadForm, NoteForm
 
 # Create your views here.
@@ -61,3 +61,21 @@ def new_note(request, notepad_id):
 	# display a blank or invalid form page
 	context = {'notepad': notepad, 'form': form}
 	return render(request, 'note_logs/new_note.html', context)		
+
+def edit_note(request, note_id):
+	# this function is for editing a choosen note
+	note = Note.objects.get(id=note_id)
+	notepad = note.notepad
+	if request.method != 'POST':
+		# no data submited
+		form = NoteForm(instance=note) # this argument allows the users to see
+									   # their data.
+	else:
+		# process the given data
+		form = NoteForm(instance=note, data=request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('note_logs:notepad', notepad_id=notepad.id)
+	context = {'note': note, 'notepad': notepad, 'form': form}
+	# display a blank or invalid form page
+	return render(request, 'note_logs/edit_note.html', context)			
