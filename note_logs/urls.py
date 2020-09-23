@@ -21,6 +21,8 @@ urlpatterns = [
 	path('new_notepad/', views.new_notepad, name='new_notepad'),
 	# Page for adding new note
 	path('new_note/<int:notepad_id>/', views.new_note, name='new_note'),
-	# Page for deleting a note
+	# Page for editing a note
 	path('edit_note/<int:note_id>/', views.edit_note, name='edit_note'),
+	# Page for deleting a note
+	path('delete_note/<int:note_id>/', views.delete_note, name='delete_note'),
 ]

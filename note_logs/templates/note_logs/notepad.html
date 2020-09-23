@@ -17,6 +17,7 @@
   	  	<p>{{ note.text|linebreaks }}</p>
         <p>
           <a href="{% url 'note_logs:edit_note' note.id %}">Edit note</a>
+          <a href="{% url 'note_logs:delete_note' note.id %}">Remove note</a>
         </p>
   	  </li>
   	{% empty %}

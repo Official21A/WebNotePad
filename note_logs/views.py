@@ -79,3 +79,16 @@ def edit_note(request, note_id):
 	context = {'note': note, 'notepad': notepad, 'form': form}
 	# display a blank or invalid form page
 	return render(request, 'note_logs/edit_note.html', context)			
+
+def delete_note(request, note_id):
+	# this function deletes a note for user
+	context = {'result': ''}
+	try:
+		# if the note did not exists
+		note = Note.objects.get(id=note_id)
+		notepad = note.notepad
+		note.delete()
+		context['result'] = "OK"
+	except Note.DoesNotExist:
+		context['result'] = "FAILD"
+	return render(request, 'note_logs/responce.html', context)	
