@@ -81,10 +81,10 @@ def edit_note(request, note_id):
 	return render(request, 'note_logs/edit_note.html', context)		
 
 def delete_notepad(request, notepad_id):
-	# this function deletes a note for user
+	# this function deletes a notepad of a user
 	context = {'result': ''}
 	try:
-		# if the note did not exists
+		# if the notepad did not exists
 		notepad = Notepad.objects.get(id=notepad_id)
 		notepad.delete()
 		context['result'] = "OK"

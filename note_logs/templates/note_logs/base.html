@@ -2,6 +2,7 @@
   <a href="{% url 'note_logs:index' %}">Note Log</a> -
   <a href="{% url 'note_logs:notepads' %}">Notepads</a> -
   {% if user.is_authenticated %}
+  	<!-- After authorizing -->
     Hello, {{ user.username }}
     <a href="{% url 'users:logout' %}">Log out</a>
   {% else %}

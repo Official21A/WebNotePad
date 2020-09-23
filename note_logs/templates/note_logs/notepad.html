@@ -7,7 +7,7 @@
   <p>Notes:</p>
 
   <p>
-    <a href="{% url 'note_logs:new_note' notepad.id %}">Add new note</a>
+    <a href="{% url 'note_logs:new_note' notepad.id %}">Add new note</a> -
     <a href="{% url 'note_logs:delete_notepad' notepad.id %}">Remove notepad</a>
   </p>
 
@@ -17,7 +17,7 @@
   	  	<p>{{ note.date_added|date:"M d, Y H:i" }}</p>
   	  	<p>{{ note.text|linebreaks }}</p>
         <p>
-          <a href="{% url 'note_logs:edit_note' note.id %}">Edit note</a>
+          <a href="{% url 'note_logs:edit_note' note.id %}">Edit note</a> -
           <a href="{% url 'note_logs:delete_note' note.id %}">Remove note</a>
         </p>
   	  </li>
