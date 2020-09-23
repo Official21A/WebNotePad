@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 
 from .models import Notepad, Note
 from .forms import NotepadForm, NoteForm
@@ -13,7 +14,7 @@ def index(request):
 @login_required
 def notepads(request):
 	# this function gets the notepads and will send them to template to render
-	notepads = Notepad.objects.order_by('date_added')	
+	notepads = Notepad.objects.filter(owner=request.user).order_by('date_added')	
 	context = {'notepads': notepads} # this part is up to us to send whatever
 									 # we want to the template.
 	return render(request, 'note_logs/notepads.html', context)
@@ -22,6 +23,7 @@ def notepads(request):
 def notepad(request, notepad_id):
 	# this function shows the notes of a notepad
 	notepad = Notepad.objects.get(id=notepad_id)
+	__owner_validation__(request.user, notepad.owner)
 	notes = notepad.note_set.order_by('-date_added') # get the notes
 	context = {'notepad': notepad, 'notes': notes} # create the context	
 	return render(request, 'note_logs/notepad.html', context)
@@ -37,7 +39,9 @@ def new_notepad(request):
 		form = NotepadForm(data=request.POST)
 		if form.is_valid():
 			# check the input validation
-			form.save()
+			new_note = form.save(commit=False)
+			new_note.owner = request.user # defining the notepad owner
+			new_note.save()
 			return redirect('note_logs:notepads') # this will take user back to
 												  # the notepads page.
 	# display a blank or invalid form page
@@ -48,6 +52,7 @@ def new_notepad(request):
 def new_note(request, notepad_id):
 	# this function creates and adds a new note to database for a user
 	notepad = Notepad.objects.get(id=notepad_id)
+	__owner_validation__(request.user, notepad.owner)
 	if request.method != 'POST':
 		# no data submited
 		form = NoteForm()
@@ -72,6 +77,7 @@ def edit_note(request, note_id):
 	# this function is for editing a choosen note
 	note = Note.objects.get(id=note_id)
 	notepad = note.notepad
+	__owner_validation__(request.user, notepad.owner)
 	if request.method != 'POST':
 		# no data submited
 		form = NoteForm(instance=note) # this argument allows the users to see
@@ -93,6 +99,7 @@ def delete_notepad(request, notepad_id):
 	try:
 		# if the notepad did not exists
 		notepad = Notepad.objects.get(id=notepad_id)
+		__owner_validation__(request.user, notepad.owner)
 		notepad.delete()
 		context['result'] = "OK"
 	except Notepad.DoesNotExist:
@@ -106,8 +113,15 @@ def delete_note(request, note_id):
 	try:
 		# if the note did not exists
 		note = Note.objects.get(id=note_id)
+		__owner_validation__(request.user, note.notepad.owner)
 		note.delete()
 		context['result'] = "OK"
 	except Note.DoesNotExist:
 		context['result'] = "FAILD"
 	return render(request, 'note_logs/remove_result.html', context)	
+
+def __owner_validation__(request_user, notepad_owner):
+	# this function checks the validation of owner of data to reduce the
+	# chances of attacking.
+	if request_user != notepad_owner:
+		raise Http404
