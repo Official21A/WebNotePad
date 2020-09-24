@@ -1,6 +1,15 @@
 {% extends "note_logs/base.html" %}
 
-{% block content %}
-  <p>Note Logs is a safe place to write and save and edit your notes, its simple
-  and usefull to manage your daily, monthly or even yearly notes.</p>
-{% endblock content %}  
+{% block page_header %}
+  <div class="jumbotron">
+  	<h1 class="display-3">Save your memories.</h1>
+
+  	<p class="lead">Note Logs is a safe place to write and save 
+  		and edit your notes, its simple
+  		and usefull to manage your daily, monthly or even yearly notes.</p>
+
+  	<a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
+  	  role="button">Register &raquo;</a>
+  </div>	
+{% endblock page_header %}
+ 
