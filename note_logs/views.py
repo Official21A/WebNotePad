@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 
+import datetime
+import pytz
+
 from .models import Notepad, Note
 from .forms import NotepadForm, NoteForm
 
@@ -63,6 +66,7 @@ def new_note(request, notepad_id):
 			# save after validation
 			new_note = form.save(commit=False)
 			new_note.notepad = notepad
+			new_note.date_modify = datetime.datetime.now(pytz.utc)
 			new_note.save()
 			# at first we tell django to create a space for the new note but
 			# not save it to database, after we defined the notepad of the note
@@ -78,6 +82,7 @@ def edit_note(request, note_id):
 	note = Note.objects.get(id=note_id)
 	notepad = note.notepad
 	__owner_validation__(request.user, notepad.owner)
+	note.date_modify = datetime.datetime.now(pytz.utc)
 	if request.method != 'POST':
 		# no data submited
 		form = NoteForm(instance=note) # this argument allows the users to see
@@ -113,7 +118,8 @@ def delete_note(request, note_id):
 	try:
 		# if the note did not exists
 		note = Note.objects.get(id=note_id)
-		__owner_validation__(request.user, note.notepad.owner)
+		notepad = note.notepad
+		__owner_validation__(request.user, notepad.owner)
 		note.delete()
 		context['result'] = "OK"
 	except Note.DoesNotExist:

@@ -22,8 +22,15 @@
       <div class="card-footer">
       	<small><a href="{% url 'note_logs:edit_note' note.id %}" 
       	  class="btn btn-dark">Edit</a></small>
-         <small><a href="{% url 'note_logs:delete_note' note.id %}"
+        <small><a href="{% url 'note_logs:delete_note' note.id %}"
           class="btn btn-danger">Remove</a></small> 
+        <small>
+        	<span class="float-sm-right">
+        	  <p style="font-size: 15px">
+        		Last edit: {{ note.date_modify|date:"M d, Y H:i" }}
+        	  </p>
+        	</span>
+        </small>  
       </div>
     </div>   
   {% empty %}

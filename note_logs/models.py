@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+import datetime
+import pytz
+
 # Create your models here.
 
 
@@ -23,6 +26,7 @@ class Note(models.Model):
     # above var is for database to connect each Note to its own Notepad
     text = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
+    date_modify = models.DateTimeField()
 
     class Meta:
     	# this inner class will let us add more details about a class for django
