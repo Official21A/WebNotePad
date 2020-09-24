@@ -8,14 +8,14 @@
 
   <ul>
   	{% for notepad in notepads %}
-  	  <li><h3>
+  	  <li><p>
   	  	<a href="{% url 'note_logs:notepad' notepad.id %}">{{ notepad }}</a>
-  	  </h3></li> <!-- to declear that this is a variable -->
+  	  </p></li> <!-- to declear that this is a variable -->
   	{% empty %}
-  	  <li><h3>No notepads have been created yet.</h3></li>
+  	  <li><h5>No notepads have been created yet.</h5></li>
   	{% endfor %}
   </ul>
 
-  <h3><a href="{% url 'note_logs:new_notepad' %}">Add a new notepad</a></h3>
+  <h5><a href="{% url 'note_logs:new_notepad' %}">Add a new notepad</a></h5>
 
 {% endblock content %}  	  

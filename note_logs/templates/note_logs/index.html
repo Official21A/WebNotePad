@@ -8,8 +8,12 @@
   		and edit your notes, its simple
   		and usefull to manage your daily, monthly or even yearly notes.</p>
 
-  	<a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
-  	  role="button">Register &raquo;</a>
+  	{% if user.is_authenticated %}
+  		<a href="{% url 'note_logs:notepads' %}" class="btn-lg">Go &raquo</a>	
+  	{% else %}
+  	    <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
+  	      role="button">Register &raquo;</a>
+  	{% endif %}
   </div>	
 {% endblock page_header %}
  
