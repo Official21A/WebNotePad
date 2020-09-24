@@ -1,19 +1,21 @@
 {% extends 'note_logs/base.html' %}
 
-{% block content %}
+{% block page_header %}
+  <h1>Notepads:</h1>
+{% endblock page_header %}
 
-  <p>Notepads</p>
+{% block content %}
 
   <ul>
   	{% for notepad in notepads %}
-  	  <li>
+  	  <li><h3>
   	  	<a href="{% url 'note_logs:notepad' notepad.id %}">{{ notepad }}</a>
-  	  </li> <!-- to declear that this is a variable -->
+  	  </h3></li> <!-- to declear that this is a variable -->
   	{% empty %}
-  	  <li>No notepads have been created yet.</li>
+  	  <li><h3>No notepads have been created yet.</h3></li>
   	{% endfor %}
   </ul>
 
-  <a href="{% url 'note_logs:new_notepad' %}">Add a new notepad</a>
+  <h3><a href="{% url 'note_logs:new_notepad' %}">Add a new notepad</a></h3>
 
 {% endblock content %}  	  
