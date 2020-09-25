@@ -80,7 +80,8 @@
 </body>
 
 <footer style="text-align: center; background-color: rgba(179, 179, 179, 0.5); 
-  position: fixed; bottom: 0%; width:100%; height: 8.7%;">
+  position: fixed; bottom: 0%; width:100%; height: 12%;">
+
   <p style="color: #262626; font-size: 14px">
   	World Of Notes is a web application that uses python, django framework.
   	<br />
@@ -88,8 +89,16 @@
   	<br />
   	Created by "najafizadeh21@gmail.com" or "officialamirhossein21@gmail.com".
   	<br />
-  	Since Sep 25th 2020.
+  	Since Sep 25th 2020.<br />
+  	<span id="time_demo" style="font-size: 14px;">No time access</span>
+
+  	<script>
+	  var d = new Date();
+      document.getElementById("time_demo").innerHTML = d;
+    </script>
+
   </p>
+  
 </footer>
 
 </html>
