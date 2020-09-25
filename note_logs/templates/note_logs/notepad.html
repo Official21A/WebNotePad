@@ -27,7 +27,7 @@
         <small>
         	<span class="float-sm-right">
         	  <p style="font-size: 15px">
-        		Last edit: {{ note.date_modify|date:"M d, Y H:i" }}
+        		  Last edit: {{ note.date_modify|date:"M d, Y H:i" }}
         	  </p>
         	</span>
         </small>  
@@ -39,7 +39,7 @@
 
   <p>
   	<a href="{% url 'note_logs:delete_notepad' notepad.id %}"
-  	  class="btn btn-danger">DELETE</a>
+  	  class="btn btn-danger">DELETE NOTEPAD</a>
   </p>
 
 {% endblock content %}  	  
